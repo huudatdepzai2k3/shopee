@@ -1,0 +1,397 @@
+<style>
+ /*start header */
+ .header{height:var(--header-height);background-image: linear-gradient(0deg, #fe6532, #f53e2d);position:fixed;top:0;right:0;left:0;z-index: 3;}
+
+/* header__navbar */
+.navbar{height:var(--navbar-height);}
+.navbar__item {color:var(--white-color);padding:0 6px;position:relative;outline:none;cursor:default;display:flex;height:24px;align-items: center;}
+.navbar__item::after{content:'';display:block;position:absolute;top:100%;width:100%;height:13px;}
+.navbar__item:hover {color:rgba(255, 251, 251, 0.9);}
+.navbar__item-separate::after{width:1px;height:12px;content:"";display:block;position:absolute;background: rgba(230, 224, 224, 0.3);top:50%;right:0;transform: translateY(-50%); /*dịch chuyển chiều cao bằng 50% chiều cao chính nó về phí trên */}
+.navbar__item>a{color:var(--white-color);}
+.navbar__item-logo{color:var(--white-color);font-size:medium;margin:3px;}
+.user__info{line-height:var(--navbar-height);position:relative;}
+.user__info-img{--size-avatar:24px;width:var(--size-avatar);height:var(--size-avatar);border-radius:50%;}
+.user__info-name{margin-left:5px;font-size: 13px;}
+.user__info-about-selection{position:absolute;top:34px;background:var(--white-color);width:150px;z-index:4;border-radius: 3px;box-shadow: 0 2px 3px #ccc;z-index:4;transform-origin: top right /*dịch chuyển tâm */;animation: growthBlock ease-in .2s,fadeIn ease-in .2s}
+.user__info-about-selection::after{content:"";display:block;border-width: 10px 14px;border-style:solid;border-color: transparent transparent var(--white-color) transparent;position:absolute;top: -20px;right: 24px;}
+.user__info:hover .user__info-about-selection{display:block}
+.user__info-about-selection>ul>li>a,.log-out{color:var(--text-color);padding:0 8px;}
+.user__info-about-selection>ul>li:hover a,.log-out:hover{color:rgb(17, 223, 213);}
+.user__info-about-selection>ul>li:hover{background:rgb(243, 243, 243);}
+.log-out{border-top: 1px dotted #ccc;}
+
+
+
+/* header__navbar-notification */
+.notification::after{content:"1";display:block;position: absolute;top: 4px;right: 71px;background: var(--white-color);color: var(--orange-color);width: 11px;height: 9px;z-index: 2;border-radius: 7px;font-size: 5px;line-height: 9px;text-align: center;border:0.1px solid var(--gray-color);}
+.notification-list-1{background:var(--white-color);position:absolute;width:303px;padding-left:0;top: 28px;right:0;border-radius: 2px;border:1px solid var(--gray-color);transform-origin: top right /*dịch chuyển tâm */;animation: growthBlock ease-in .2s,fadeIn ease-in .2s;z-index:2;}
+.notification-list-1::before,.language__selection::before,.notification-list-2::after{content:"";display:block;border-width: 10px 14px;border-style:solid;border-color: transparent transparent var(--white-color) transparent;position:absolute;top: -20px;right: 5px;}
+.notification-list-1::after,.language__selection::after{content:"";display:block;width: 79px;height: 19px;position:absolute;top: -20px;right: 5px;}
+.notification-list-2{width:400px;height:456px;background:var(--white-color);z-index:2;position:absolute;top:32px;right:6px;transform-origin: top right /*dịch chuyển tâm */;animation: growthBlock ease-in .2s,fadeIn ease-in .2s}
+.notification:hover .notification-list-1,.notification-1:hover .notification-list-2{display:block;}
+.notification-1:hover .notification-list-2{display:block;}
+.notification-list-1>h3{color:#999;font-size:12px;}
+.nav__notification{padding:5px 0;background:rgb(249, 242, 238);display:flex;}
+.nav__notification:hover {background:#e4e0e0;}
+.content-notification-item{ margin-left:15px;}
+.img-notification-item{width:30px;height:30px;margin-left:6px;}
+.title-notification-item{font-size:1.1rem;color:var(--text-color);}
+.content-notification-item{font-size:1.0rem;color:var(--text-color);}
+.log-sign{background:rgb(247, 244, 244);}
+.log-sign-btn{flex:1;color:var(--text-color);text-align: center;padding:15px 0;}
+.log-sign-btn + .log-sign-btn{border-left:1px solid #b4a3a3}
+
+
+/* header__navbar-qr */
+.qr-install{position:absolute;top:100%;background:var(--white-color);box-shadow: 0 0 1px var(--black-color);border-radius: 2px;z-index:2;}
+.navbar__item-qr:hover .qr-install{display:block;}
+.qr-code{width:130px;}
+.img-store{width: 52px;height:30px;padding:5px;}
+
+/* header__navbar-language */
+.language__selection{border-radius: 2px;border: 1px solid var(--gray-color);position:absolute;width:130px;background:var(--white-color);top:25px;right:0;transform-origin: top right;animation: growthBlock ease-in .2s,fadeIn ease-in .2s;will-change: opacity,transform /*sẽ thay đổi gì  có tác dụng tối ưu animation có ở trong thẻ đó với những thuộc tinh sau will-change*/;z-index:2;}
+.language__selection-item{color:var(--black-color);padding:11px 10px;font-size:12px;}
+.language__selection-item:hover{color:var(--red-color);cursor:unset;}
+.language:hover .language__selection{display:block;}
+
+/* header-width-seach__left*/
+.header-width-search{padding:16px 0 10px;height:var(--header-width-seach-height);}
+.header-width-seach__logo{height:50px;width:160px;margin-right:59px;}
+
+/* header-width-seach__center */
+.header__search{flex:1;height:40px;display:flex;flex-direction: column;width:1200px;max-width:100%;}
+.header__search-bar-find{display:flex;position:relative;padding:3px;}
+.header__search-bar-content{flex:1;line-height:var(--seach-box-header-height);padding-left: 10px;outline:none;}
+.header__search-suggest>ul{display:flex;margin-top:3px;}
+.header__search-suggest>ul>li>a{color:var(--white-color);margin: 5px 0 0 13px;}
+.header__search-bar-suggest{background:var(--white-color);border-radius: 3px;}
+.header__search-bar-suggest>a{color:var(--black-color);font-size: 1rem;padding:0 10px;}
+.header__search-bar-suggest>a:hover{background:#fafafa}
+.header__search-bar-content-history{position:absolute;background:var(--white-color);box-shadow:0 0 3px #ccc;border-radius: 3px;top:100%;width:calc(100% - 80px);}
+.header__search-bar-content:checked ~ .header__search-bar-content-history{display:block}
+.header__search-bar-history-items{line-height: 40px;padding-left:12px}
+.header__search-bar-history-items img{height:20px;padding-right:10px;}
+.header__search-bar-history-items:hover{background:rgba(245, 242, 242, 0.55)}
+
+/* header-width-seach__center-right */
+.search-cart{width: 57px;line-height: 59px;margin-left:40px;}
+.fa-cart-shopping::before {content: "\f07a";font-size:30px;color:var(--white-color)}
+.header__search-btn{width: 58px;height:30px;background:var(--btn-color);border-radius: 3px;color:var(--white-color);position:absolute;right:7px;top:5px}
+
+/* welding__basket_list */
+.header-width-search-cart{ position:relative;}
+.search-cart__the-number-of-products{color: var(--btn-color);background: var(--white-color);border-radius: 14px;line-height: 15px;height: 14px;padding: 1px 4px;position: absolute;top: 5px;right: 18px;box-shadow: 0 0 5px var(--btn-color)}
+.welding__basket_list{flex-direction: column;background:var(--white-color);position:absolute;right:17px;top: 49.4px;width:400px;height:285px;border:1px solid rgba(230, 224, 224, 0.3);border-radius: 2px;transform-origin: top right;/*dịch chuyển tâm */animation: growthBlock ease-in .2s,fadeIn ease-in .2s;}
+.search-cart:hover .welding__basket_list{display:flex;}
+.welding__basket_list::before{content: "";display: block;position: absolute;top: -17px;right: -12px;width: 80px;height: 16px;}
+.welding__basket_list::after{content:"";display:block;border-width: 10px 14px;border-style:solid;border-color: transparent transparent var(--white-color) transparent;position:absolute;top: -20px;right: 11px;}
+.welding__basket_list-header{color:var(--gray-color);}
+.welding__basket_list-category{height:65vh;overflow-y: auto;}
+.welding__basket_list-category>ul>li{display:flex;line-height: 50px;align-items: center;}
+.welding__basket_list-category>ul>li:hover{background:var(--background-color);}
+.welding__basket_list-category img{width:40px;height:40px;margin:-16px 10px -16px;border:1px solid var(--gray-color);}
+.welding__basket_list-category>ul>li>span{line-height: 13px;}
+.welding__basket_list-category-cost{padding:0 10px;text-align: center;color:var(--red-color);justify-content: right;}
+.welding__basket_list-infomation{color:var(--text-color);}
+.welding__basket_list-infomation-btn{color:var(--white-color);background:var(--btn-color);border:0;padding:10px;border-radius: 3px;}
+.welding__basket_list-infomation-btn:hover{opacity:0.8;}
+.welding__basket_list-infomation,.welding__basket_list-header{margin:0 10px;line-height: 40px;}
+
+
+/* cart-1 */
+.cart__no-item{background:var(--white-color);position:absolute;right:17px;top: 49.4px;border:1px solid rgba(230, 224, 224, 0.3);border-radius: 2px;transform-origin: top right;/*dịch chuyển tâm */animation: growthBlock ease-in .2s,fadeIn ease-in .2s;}
+.cart__no-item::after{content:"";display:block;border-width: 10px 14px;border-style:solid;border-color: transparent transparent var(--white-color) transparent;position:absolute;top:-20px;right: 10px;}
+.js-cart-1:hover .cart__no-item{display:block;}
+
+/* login */
+.log-sign{display:flex}
+/*end header */
+</style>
+<header class="header grid__full-width" id="header-text">
+   <div class="grid">
+      <div class="navbar flex__justify--space-between ">
+         <div class="flex__align-center">
+            <a href="https://banhang.shopee.vn/portal/onboarding/" class="navbar__item  navbar__item-separate">Kênh người bán </a>
+            <a href="" class="navbar__item  navbar__item-separate js-separate">Trở thành Người bán Shopee </a>
+            <div class="navbar__item-qr  navbar__item">
+               <a href="" class=" navbar__item-separate navbar__item" >Tải ứng dụng</a>
+               <div class="qr-install">
+                  <img src="./assets/image/qr image/pr.png" alt="" class="qr-code">
+                  <img src="./assets/image/qr image/ch-play.png" alt=""  class="img-store">
+                  <img src="./assets/image/qr image/app store.png" alt="" class="img-store">
+                  <img src="./assets/image/qr image/ApppGaLLery.png" alt="" class="img-store">
+               </div>
+            </div> 
+            <div class="navbar__item ">Kết nối</div>
+            <div class="navbar__item ">
+               <a href="" ><i class="fa-brands fa-facebook hover-disable navbar__item-logo"></i></a>
+               <a href="" ><i class="fa-brands fa-instagram hover-disable navbar__item-logo"></i></a>
+            </div>
+         </div>
+
+         <div class="flex__align-center">
+            <div class="navbar__item  notification"><i class="fa-solid fa-bell item-logo"></i> Thông báo
+               <ul class="notification-list-1">
+               <h3>Thông báo mới nhận</h3>
+               <li><a href="" class="nav__notification ">
+                  <img src="./assets/image/notification/voncher 1.jfif" alt="img-1" class="img-notification-item">
+                  <div class="content-notification-item">
+                     <p class="title-notification-item">Săn trước voncher 15.4 đến 70k</p>
+                     <p class="content-notification-item">đêm ngược 2 ngày đến sale 15.4. sale đồng giá 1K</p>
+                  </div>
+               </a></li>
+
+               <li><a href="" class="nav__notification ">
+                  <img src="./assets/image/notification/voncher 2.jfif" alt="ing-2" class="img-notification-item">
+                  <div class="content-notification-item">
+                     <p class="title-notification-item">VONCHER thành viên đến 50k</p>
+                     <p class="content-notification-item">săn voncher ngày hội thành viên giảm giá đến 50k</p>
+                  </div>
+               </a></li>
+               <a href="" class="flex-center">xem tất cả <i class="fa-solid fa-chevron-right"></i></a>
+               </ul>
+            </div>
+            
+            <div class="navbar__item  notification-1"><i class="fa-solid fa-bell item-logo"></i> Thông báo
+               <div class="notification-list-2">
+                  <img src="./assets/image/notification/4.png">
+                  <div class="log-sign">
+                     <div class="js-login log-sign-btn">Đăng Nhập</div>
+                     <div class="js-signin log-sign-btn">Đăng Kí</div>
+                  </div>
+               </div>
+            </div>
+
+            <a href="#" class="navbar__item "><i class="fa-solid fa-circle-question"></i> Hỗ trợ</a>
+            <div class="navbar__item  language"><i class="fa-solid fa-globe"></i> Tiếng Việt
+               <div class="language__selection">
+                  <div class="language__selection-item">Tiếng việt</div>
+                  <div class="language__selection-item">Tiếng anh</div>
+               </div>
+            </div>
+
+            <div class="login-signin">
+               <span class="navbar__item  navbar__item-separate js-signin">Đăng kí </span>
+               <span class="navbar__item  js-login">Đăng nhập </span>
+            </div>
+
+            <div class="navbar__item  user__info js-user">
+               <img src="https://cafefcdn.com/thumb_w/650/203337114487263232/2022/3/3/photo1646280815645-1646280816151764748403.jpg" alt="" class="user__info-img">
+               <div class="user__info-name">Nguyễn Hữu Đạt</div>
+               <div class="user__info-about-selection">
+                  <ul>
+                     <li><a href="">Tài khoản của tôi</a></li>
+                     <li><a href="">Đơn mua</a></li>
+                     <li class="log-out">Đăng xuất</li>
+                  </ul>
+               </div>
+            </div>
+         
+         </div> 
+      </div>
+      <div class="header-width-search flex__justify--space-between">
+         <a href="https://shopee.vn"><img src="./assets/image/logo/4321Shopee-logo-512x512.png" alt="" class="header-width-seach__logo"></a>
+         <div class="header__search flex">
+            <div class="header__search-bar">
+               <div class="header__search-bar-find">
+                  <input type="text" class="header__search-bar-content" placeholder="Tìm sản phẩm,thương hiệu và tên shop">
+                  <button class="header__search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                  <div class="header__search-bar-content-history">
+                  <ul>
+                     <li><a href="http://127.0.0.1:5500/%E1%BB%91p%20l%C6%B0ng.html" class="header__search-bar-history-items flex__align-center__justify-space-between">
+                        <nav>ốp điện thoại</nav> 
+                     </a></li>
+                     <li><a href="" class="header__search-bar-history-items flex__align-center__justify-space-between">
+                        <nav>SIÊU SALE THỜI TRANG - DEAL TỪ 1K</nav> <img src="https://cf.shopee.vn/file/55cf862f7db2b48f08b3fd7090d1f3b2" alt="">
+                     </a></li>
+                  </ul>
+                  </div>
+               </div>
+               <div class="header__search-bar-suggest">
+                  <a href="">
+                     <nav>kẹp tóc</nav>
+                     <img src="" alt="">
+                  </a>
+                  <a href="">
+                     <nav>máy tính</nav>
+                     <img src="" alt="">
+                  </a>
+                  <a href="">
+                     <nav>điện thoại</nav>
+                     <img src="" alt="">
+                  </a>
+            </div>
+            </div>
+            <div class="header__search-suggest">
+               <ul>
+                  <li><a href="https://shopee.vn/search?keyword=d%C3%A9p">Dép</a></li>
+                  <li><a href="https://shopee.vn/search?keyword=%C3%A1o%20ph%C3%B4ng">Áo phông</a></li>
+                  <li><a href="https://shopee.vn/search?keyword=v%C3%A1y">Váy</a></li>
+                  <li><a href="https://shopee.vn/search?keyword=%C3%A1o%20kho%C3%A1c">Áo khoác</a></li>
+                  <li><a href="https://shopee.vn/search?keyword=%C3%A1o%20croptop">Áo croptop</a></li>
+                  <li><a href="https://shopee.vn/search?keyword=t%C3%BAi%20x%C3%A1ch%20n%E1%BB%AF">Túi xách nữ</a></li>
+                  <li><a href="https://shopee.vn/search?keyword=d%C3%A9p%20n%E1%BB%AF">Dép nữ</a></li>
+               </ul>
+            </div>
+         </div>
+
+         <div class="header-width-search-cart search-cart js-cart-1">
+            <a href=""><i class="fa-solid fa-cart-shopping search-cart__logo"></i></a>
+            <div class="cart__no-item">
+               <img src="./assets/image/cart/cart-empty-img.8b677cb3.png" class="cart__no-item-img" style="width:400px;height:290px;">
+            </div>
+         </div>
+
+         <div class="header-width-search-cart search-cart js-cart-2">
+            <a href=""><i class="fa-solid fa-cart-shopping search-cart__logo"></i></a>
+            <div class="search-cart__the-number-of-products js-ProductsCart">
+               91
+            </div>
+            <div class="welding__basket_list">
+               <div class="welding__basket_list-header">
+                  Sản phẩm mới thêm
+               </div>
+               <div class="welding__basket_list-category">
+                  <ul>
+                     <li><a href="">
+                        <img src="https://cf.shopee.vn/file/79c149b57c4c079e80ca6481225a05f0_tn" alt="bàn phím cơ"></a>
+                        <span class="Cve6sh">
+                           Kềm bấm móng tay 777 chất liệu thép không gỉ cao cấp jbeioq iwfbuui wgf8 gqg 8gefgw8 gwf8gfw</span>
+                        <span class="welding__basket_list-category-cost">đ36.000</span></a>
+                     </li>
+                     <li><a href="">
+                        <img src="https://cf.shopee.vn/file/a657dbeff8e4735ca966c86b3f981478_tn" alt=""></a>
+                        <span>
+                           Bàn phím cơ gaming ZIYOU K@ PRO LED RGB 10 chế độ , chơi game
+                        </span>
+                        <span class="welding__basket_list-category-cost">đ429.000</span></a>
+                     </li>
+                     <li><a href="">
+                        <img src="https://cf.shopee.vn/file/63048b402ca1af7fa20ab2d8579b0956_tn" alt=""></a>
+                        <span>
+                           Set 20 thiết bị thạch anh cộng hưởng 32.768khz với lỗi 20ppm 3x8 32.7
+                        </span>
+                        <span class="welding__basket_list-category-cost">đ32.798</span></a>
+                     </li>
+                     <li><a href="">
+                     <img src="https://cf.shopee.vn/file/79c149b57c4c079e80ca6481225a05f0_tn" alt="bàn phím cơ"></a>
+                     <span class="Cve6sh">
+                        Kềm bấm móng tay 777 chất liệu thép không gỉ cao cấp jbeioq iwfbuui wgf8 gqg 8gefgw8 gwf8gfwpan</span>
+                     <span class="welding__basket_list-category-cost">đ36.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/a657dbeff8e4735ca966c86b3f981478_tn" alt=""></a>
+                     <span>
+                        Bàn phím cơ gaming ZIYOU K@ PRO LED RGB 10 chế độ , chơi game
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ429.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/63048b402ca1af7fa20ab2d8579b0956_tn" alt=""></a>
+                     <span>
+                        Set 20 thiết bị thạch anh cộng hưởng 32.768khz với lỗi 20ppm 3x8 32.7
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ32.798</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/79c149b57c4c079e80ca6481225a05f0_tn" alt="bàn phím cơ"></a>
+                     <span class="Cve6sh">
+                        Kềm bấm móng tay 777 chất liệu thép không gỉ cao cấp jbeioq iwfbuui wgf8 gqg 8gefgw8 gwf8gfwpan</span>
+                     <span class="welding__basket_list-category-cost">đ36.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/a657dbeff8e4735ca966c86b3f981478_tn" alt=""></a>
+                     <span>
+                        Bàn phím cơ gaming ZIYOU K@ PRO LED RGB 10 chế độ , chơi game
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ429.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/63048b402ca1af7fa20ab2d8579b0956_tn" alt=""></a>
+                     <span>
+                        Set 20 thiết bị thạch anh cộng hưởng 32.768khz với lỗi 20ppm 3x8 32.7
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ32.798</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/79c149b57c4c079e80ca6481225a05f0_tn" alt="bàn phím cơ"></a>
+                     <span class="Cve6sh">
+                        Kềm bấm móng tay 777 chất liệu thép không gỉ cao cấp jbeioq iwfbuui wgf8 gqg 8gefgw8 gwf8gfwpan</span>
+                     <span class="welding__basket_list-category-cost">đ36.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/a657dbeff8e4735ca966c86b3f981478_tn" alt=""></a>
+                     <span>
+                        Bàn phím cơ gaming ZIYOU K@ PRO LED RGB 10 chế độ , chơi game
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ429.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/63048b402ca1af7fa20ab2d8579b0956_tn" alt=""></a>
+                     <span>
+                        Set 20 thiết bị thạch anh cộng hưởng 32.768khz với lỗi 20ppm 3x8 32.7
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ32.798</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/79c149b57c4c079e80ca6481225a05f0_tn" alt="bàn phím cơ"></a>
+                     <span class="Cve6sh">
+                        Kềm bấm móng tay 777 chất liệu thép không gỉ cao cấp jbeioq iwfbuui wgf8 gqg 8gefgw8 gwf8gfwpan</span>
+                     <span class="welding__basket_list-category-cost">đ36.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/a657dbeff8e4735ca966c86b3f981478_tn" alt=""></a>
+                     <span>
+                        Bàn phím cơ gaming ZIYOU K@ PRO LED RGB 10 chế độ , chơi game
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ429.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/63048b402ca1af7fa20ab2d8579b0956_tn" alt=""></a>
+                     <span>
+                        Set 20 thiết bị thạch anh cộng hưởng 32.768khz với lỗi 20ppm 3x8 32.7
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ32.798</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/79c149b57c4c079e80ca6481225a05f0_tn" alt="bàn phím cơ"></a>
+                     <span class="Cve6sh">
+                        Kềm bấm móng tay 777 chất liệu thép không gỉ cao cấp jbeioq iwfbuui wgf8 gqg 8gefgw8 gwf8gfwpan</span>
+                     <span class="welding__basket_list-category-cost">đ36.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/a657dbeff8e4735ca966c86b3f981478_tn" alt=""></a>
+                     <span>
+                        Bàn phím cơ gaming ZIYOU K@ PRO LED RGB 10 chế độ , chơi game
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ429.000</span></a>
+                  </li>
+                  <li><a href="">
+                     <img src="https://cf.shopee.vn/file/63048b402ca1af7fa20ab2d8579b0956_tn" alt=""></a>
+                     <span>
+                        Set 20 thiết bị thạch anh cộng hưởng 32.768khz với lỗi 20ppm 3x8 32.7
+                     </span>
+                     <span class="welding__basket_list-category-cost">đ32.798</span></a>
+                  </li>
+                     <li><a href="">
+                        <img src="https://cf.shopee.vn/file/9cc7e747591d4357aa602cd4f514a4a6_tn" alt=""></a>
+                        <span>
+                           Cáp Sạc Nhanh SGALAS Micro USB 2A Tiện Dụng Để Truyền Dữ Liệu
+                        </span>
+                        <span class="welding__basket_list-category-cost">đ12.000</span></a>
+                     </li>
+                  </ul>
+               </div>
+               <div class="welding__basket_list-infomation flex__justify--space-between ">
+                  <span>86 Thêm hàng vào giỏ</span>
+                  <a>
+                     <button class="welding__basket_list-infomation-btn">Xem giỏ hàng</button>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+ </header>
+ <script src="./assets/js/main.js" ></script>
